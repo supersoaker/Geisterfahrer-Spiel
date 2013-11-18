@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ultracooles AutoSpiel</title>
+    <meta name="viewport" content="width=device-width, user-scalable=false;">
+    <script type="text/javascript" src="jquery.js"></script>
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+    <script src="less.js" type="text/javascript">
+        require('less').render('.class { width: (1 + 1) }', function (e, css) {  });
+    </script>
+    <script type="text/javascript" src="jquery.touchwipe.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="game.js"></script>
+    <script type="text/javascript" src="enemy.js"></script>
+    <script type="text/javascript" src="level.js"></script>
+    <script type="text/javascript" src="player.js"></script>
+</head>
+<body>
+    <div id="welcome">
+        <h1>Marlon's Ultracooles Autospiel !</h1>
+        <input id="name" type="text" placeholder="Name" />
+        <button id="start-button">Los Geht's!</button>
+        <div style="border-radius: 10px; border:2px solid #CCCCCC; width: 300px; margin: 10px auto 0; padding: 0 10px;">
+            <p>wenn du deinen Namen angibst, wird er mit deinem Endergebnis gespeichert und du kommst evtl. in die Top20!</p>
+        </div>
+    </div>
+    <div id="game" class="hidden">
+        <div class="white-bg"></div>
+        <div id="content" class="">
+        </div>
+        <div id="score">
+            <h1>0</h1>
+            <p>m</p>
+            <div id="tacho">
+                <img src="images/tacho/1.png" alt=""/>
+            </div>
+        </div>
+    </div>
+    <div id="gameover" class="hidden">
+        <h1> GAME OVER </h1>
+        <h2 id="meters"></h2>
+        <button id="again-button">Nochmaal !</button>
+
+        <div id="highscores" style="display: none; margin: 60px auto 30px; max-width: 500px">
+            <h2 class="trigger" data-dd="1">Top 20</h2>
+            <div class="dropdown closed" id="dropdown1">
+                <p>tabelle</p>
+            </div>
+
+            <h2 class="trigger" data-dd="2">Deine Ergebnisse</h2>
+            <div class="dropdown closed" id="dropdown2">
+                <p>tabelle</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.trigger').click(function() {
+                var trigger = $(this),
+                        id = trigger.attr('data-dd'),
+                        dropdownObj = $('#dropdown' + id);
+
+                var open = false;
+                if(typeof trigger.data('isOpen') == 'undefined' || !trigger.data('isOpen')) {
+                    open = true;
+                }
+
+                trigger.data('isOpen', open);
+
+                if (open) {
+                    dropdownObj.slideDown('slow');
+                    trigger.css('background-position', '0 0');
+                } else {
+                    dropdownObj.slideUp('slow', function(){
+                        if(trigger.hasClass("last")){
+                            trigger.css('border-bottom', '1px solid #cfcfcf');
+                        }
+                    });
+                    trigger.css('background-position', '0 bottom');
+                }
+
+
+            });
+        });
+    </script>
+</body>
+</html>
